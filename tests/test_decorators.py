@@ -11,7 +11,7 @@ def test_positional_args():
     bmk = Mock()
     bmk.return_value = True
 
-    @validates(amk, bmk)
+    @validates(amk, bmk, None)
     def inner(a, b, c):
         return a, b, c
 
