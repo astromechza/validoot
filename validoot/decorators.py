@@ -1,7 +1,7 @@
 
 from .exceptions import ValidationError
 
-class validated(object):
+class validates(object):
 
     def __init__(self, *args, **kwargs):
         self.positional_validators = args
