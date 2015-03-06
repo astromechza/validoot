@@ -16,13 +16,13 @@ class validated(object):
             r = self.positional_validators[i](args[i])
             if r != True:
                 raise ValidationError(
-                    'Validation for position argument %d with value %r failed.'.format(i, args[i]))
+                    'Validation for position argument {:d} with value {!r} failed.'.format(i, args[i]))
 
         for k, v in kwargs.iteritems():
             if k in self.keyword_validators:
                 r = self.keyword_validators[k](v)
                 if r != True:
                     raise ValidationError(
-                        'Validation for keyword argument %s with value %s failed.'.format(k, v))
+                        'Validation for keyword argument {!s} with value {!r} failed.'.format(k, v))
 
         return self.func(*args, **kwargs)

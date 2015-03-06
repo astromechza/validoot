@@ -9,8 +9,6 @@ class Clause(object):
     def __call__(self, value):
         return False
 
-# type clause
-
 class is_type(Clause):
 
     def __init__(self, typ):
@@ -19,6 +17,14 @@ class is_type(Clause):
 
     def __call__(self, value):
         return type(value) == self.typ
+
+class is_instance(Clause):
+    def __init__(self, inst):
+        super(is_instance, self).__init__()
+        self.inst = inst
+
+    def __call__(self, value):
+        return isinstance(value, self.inst)
 
 class between(Clause):
 
@@ -33,4 +39,4 @@ class between(Clause):
 class len_between(between):
 
     def __call__(self, value):
-        super(len_between, self).__call__(len(value))
+        return super(len_between, self).__call__(len(value))
