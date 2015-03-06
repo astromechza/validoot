@@ -36,6 +36,13 @@ def test_between():
     assert not between(0, 1)(-1)
     assert not between(0, 1)(2)
 
+def test_between_bounds():
+    assert between(0, 1)(0)
+    assert not between(0, 1)(1)
+    assert not between(0, 100, lower_inclusive=False)(0)
+    assert between(0, 100, upper_inclusive=True)(100)
+    assert not between(0, 100, upper_inclusive=True)(101)
+
 # len_between clause
 
 def test_len_between():

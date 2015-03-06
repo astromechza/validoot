@@ -25,13 +25,27 @@ class is_instance(Clause):
 
 class between(Clause):
 
-    def __init__(self, lower, upper):
+    def __init__(self, lower, upper, lower_inclusive=True, upper_inclusive=False):
         super(between, self).__init__()
         self.lower = lower
         self.upper = upper
+        self.lower_inclusive = lower_inclusive
+        self.upper_inclusive = upper_inclusive
 
     def __call__(self, value):
-        return self.lower < value < self.upper
+        if self.lower_inclusive:
+            if value < self.lower:
+                return False
+        elif value <= self.lower:
+            return False
+
+        if self.upper_inclusive:
+            if value > self.upper:
+                return False
+        elif value >= self.upper:
+            return False
+
+        return True
 
 class len_between(between):
 
