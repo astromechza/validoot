@@ -25,7 +25,7 @@ setup(
     # package info
     name='validoot',
     version='1.0',
-    description='',
+    description='Simple validation for function arguments using a decorator.',
     packages=['validoot'],
 
     # runtime scripts
