@@ -1,8 +1,8 @@
 import pytest
 
-from validoot import ValidationError, validated, _and_, _or_, is_type, between, len_between, is_instance
+from validoot import ValidationError, validated, And, Or, is_type, between, len_between, is_instance
 
-@validated(_and_(is_type(int), between(0, 10)), is_type(float), key=_and_(is_instance(str), len_between(8, 20)))
+@validated(And(is_type(int), between(0, 10)), is_type(float), key=And(is_instance(str), len_between(8, 20)))
 def some_function(a, b, key=None):
     return a, b
 

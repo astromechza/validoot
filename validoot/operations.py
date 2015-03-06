@@ -1,6 +1,6 @@
 from .exceptions import ValidationError
 
-class _and_(object):
+class And(object):
 
     def __init__(self, *clauses):
         for clause in clauses:
@@ -15,7 +15,7 @@ class _and_(object):
                     'Value {!r} did not pass clause {!r}'.format(value, clause))
         return True
 
-class _or_(object):
+class Or(object):
 
     def __init__(self, *clauses):
         for clause in clauses:
