@@ -61,6 +61,15 @@ def do_something(name, id, age):
     pass
 ```
 
+### What validation clauses are built in?
+
+* `is_type(t)` - value must be of exact type `t`
+* `is_instance(t)` - value must be of exact type `t` or of subclass
+* `between(lower, upper, lower_inclusive=True, upper_inclusive=False)` - the value must between `lower` and `upper`.
+* `len_between(...)` - identical to `between` but uses `len(value)`
+* `not_negative()` - value cannot be negative
+
 ### How do I create my own validation clauses?
 The builtin clauses provided by Validoot are all subclasses of the `validoot.clauses.Clause`
-object. Check out it's source code to see how they work.
+object. Check out it's source code to see how they work. Technically clauses can
+be any callable object so plain functions or lambdas also work.

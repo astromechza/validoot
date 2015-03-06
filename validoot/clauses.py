@@ -51,3 +51,8 @@ class len_between(between):
 
     def __call__(self, value):
         return super(len_between, self).__call__(len(value))
+
+class not_negative(Clause):
+    def __call__(self, value):
+        return value >= 0
+
