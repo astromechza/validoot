@@ -1,5 +1,7 @@
 
-from validoot.clauses import Clause, is_type, is_instance, between, len_between
+from validoot.clauses import (
+    Clause, is_type, is_instance, between, len_between, not_negative
+)
 
 # base clause
 
@@ -50,3 +52,10 @@ def test_len_between():
     assert not len_between(0, 5)('something long')
     assert not len_between(2, 5)('')
 
+# not_negative clause
+
+def test_not_negative():
+    assert not_negative()(0)
+    assert not_negative()(10)
+    assert not not_negative()(-1)
+    assert not not_negative()(-10)
