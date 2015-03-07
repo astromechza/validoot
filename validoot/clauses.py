@@ -25,10 +25,22 @@ class typ(Clause):
         return type(value) == self._type
 
 
+class typ_or_none(typ):
+
+    def __call__(self, value):
+        return value is None or super(typ_or_none, self).__call__(value)
+
+
 class inst(typ):
 
     def __call__(self, value):
         return isinstance(value, self._type)
+
+
+class inst_or_none(inst):
+
+    def __call__(self, value):
+        return value is None or super(inst_or_none, self).__call__(value)
 
 
 class between(Clause):

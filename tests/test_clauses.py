@@ -1,6 +1,8 @@
 
 from validoot.clauses import (
-    Clause, typ, inst, between, len_between, not_negative
+    Clause,
+    typ, typ_or_none, inst, inst_or_none,
+    between, len_between, not_negative
 )
 
 
@@ -39,6 +41,13 @@ def test_typ_no_inheritance():
     assert typ(A)(A())
     assert not typ(A)(B())
 
+# typ_or_none clause
+
+def test_typ_or_none():
+    assert typ_or_none(int)(1)
+    assert typ_or_none(int)(None)
+    assert not typ_or_none(int)(2.999)
+
 # inst clause
 
 def test_inst():
@@ -51,6 +60,14 @@ def test_inst_inheritance():
     assert inst(A)(A())
     assert inst(A)(B())
     assert not inst(B)(A())
+
+# inst_or_none clause
+
+def test_inst_or_none():
+    assert inst_or_none(A)(A())
+    assert inst_or_none(A)(B())
+    assert inst_or_none(A)(None)
+    assert not inst_or_none(B)(A())
 
 # between clause
 
