@@ -60,6 +60,16 @@ def do_something(name, something=1.0, anotherthing=2):
 Here the `something` value must pass the validation checks as specified in the decorator.
 No checks exist for `anotherthing` so it has no restrictions.
 
+## Additional Clauses:
+
+There are some more complex clauses included with the package:
+
+- `_` : The underscore only allows `NoneType`.
+- `numeric` : Only accepts `int`, `float`, or `long` types.
+- `text` : Only accepts instances of `basestring` (Python 2) or `str` (Python 3).
+
+These can be found in the `validoot.builtins` module.
+
 ## FAQ:
 
 ### What if I don't want validation for one of the position arguments?
