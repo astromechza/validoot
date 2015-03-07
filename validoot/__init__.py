@@ -8,7 +8,7 @@ from .clauses import (
     len_between,
     not_negative
 )
-
+from .builtins import _, numeric, text
 
 __all__ = [
     'ValidationError',
@@ -21,5 +21,7 @@ __all__ = [
     'inst_or_none',
     'between',
     'len_between',
-    'not_negative'
+    'not_negative',
+    'numeric',
+    'text'
 ]
