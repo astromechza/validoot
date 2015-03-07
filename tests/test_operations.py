@@ -11,9 +11,7 @@ def ff(v):
 
 def test_And():
     assert And(tt, tt)(1)
-
-    with pytest.raises(ValidationError):
-        And(tt, ff)(1)
+    assert not And(tt, ff)(1)
 
 def test_And_bad_arg():
     with pytest.raises(TypeError):
@@ -21,9 +19,7 @@ def test_And_bad_arg():
 
 def test_Or():
     assert Or(ff, tt)(1)
-
-    with pytest.raises(ValidationError):
-        Or(ff, ff)(1)
+    assert not Or(ff, ff)(1)
 
 def test_Or_bad_arg():
     with pytest.raises(TypeError):

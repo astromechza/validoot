@@ -12,9 +12,7 @@ class And(object):
     def __call__(self, value):
         for clause in self.clauses:
             if clause(value) is not True:
-                raise ValidationError(
-                    'Value {!r} did not pass clause {!r}'.format(
-                        value, clause))
+                return False
         return True
 
 
@@ -30,5 +28,4 @@ class Or(object):
         for clause in self.clauses:
             if clause(value) is True:
                 return True
-        raise ValidationError(
-            'Value {!r} did not pass any clauses'.format(value))
+        return False

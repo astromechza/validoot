@@ -1,3 +1,5 @@
+from .operations import And, Or
+
 class Clause(object):
 
     def __init__(self):
@@ -5,6 +7,12 @@ class Clause(object):
 
     def __call__(self, value):
         return False
+
+    def _and(self, clause):
+        return And(self, clause)
+
+    def _or(self, clause):
+        return Or(self, clause)
 
 
 class typ(Clause):

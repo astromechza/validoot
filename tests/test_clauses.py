@@ -15,6 +15,18 @@ class B(A):
 def test_Clause():
     assert not Clause()(1)
 
+def test_clause_and_shortcut():
+    c = typ(int)._and(between(0, 10))
+    assert c(1)
+    assert c(9)
+    assert not c(11)
+
+def test_clause_or_shortcut():
+    c = typ(int)._or(typ(float))
+    assert c(1)
+    assert c(1.9)
+    assert not c('string')
+
 # typ clause
 
 def test_typ():
