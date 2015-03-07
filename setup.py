@@ -28,7 +28,20 @@ setup(
     author='Ben Meier',
     author_email='benmeier@fastmail.com',
     url='http://github.com/AstromechZA/validoot',
+    download_url='https://github.com/AstromechZA/validoot/tarball/1.0',
     description='Simple validation for function arguments using a decorator.',
+    keywords=[
+        'validate',
+        'function arguments',
+        'decorator'
+    ],
+    classifiers=[
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
+        'Topic :: Software Development'
+    ],
     license='MIT',
 
     # packages
