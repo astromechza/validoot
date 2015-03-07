@@ -9,11 +9,11 @@ class Clause(object):
     def __call__(self, value):
         return False
 
-    def _and(self, clause):
-        return And(self, clause)
+    def _and(self, *clauses):
+        return And(*([self] + list(clauses)))
 
-    def _or(self, clause):
-        return Or(self, clause)
+    def _or(self, *clauses):
+        return Or(*([self] + list(clauses)))
 
 
 class typ(Clause):

@@ -13,7 +13,7 @@ string lengths.
 ## Basic example:
 
 ```python
-@validates(is_instance(basestring), is_type(int), between(0, 100))
+@validates(inst(basestring), typ(int), between(0, 100))
 def do_something(name, id, age):
     pass
 ```
@@ -29,7 +29,7 @@ it must be between 5 and 40 characters. For this we use the `validoot.And` opera
 to combine the clauses.
 
 ```python
-@validates(And(is_instance(basestring), len_between(5, 40)), is_type(int), between(0, 100))
+@validates(And(inst(basestring), len_between(5, 40)), typ(int), between(0, 100))
 def do_something(name, id, age):
     pass
 ```
@@ -37,12 +37,22 @@ def do_something(name, id, age):
 An `Or` operator also exists. Both `And` and `Or` take in a variable number of
 clauses and can be nested further.
 
+Operator shortcuts are provided for joining clauses in a different manner which
+reads differently (`._and(...)`, `._or(...)`). So our previous example can be
+changed to look like this:
+
+```python
+@validates(inst(basestring)._and(len_between(5, 40)), typ(int), between(0, 100))
+def do_something(name, id, age):
+    pass
+```
+
 ## Keyword arguments:
 
 There is also support for keyword arguments:
 
 ```python
-@validates(is_instance(basestring), something=is_type(float))
+@validates(inst(basestring), something=typ(float))
 def do_something(name, something=1.0, anotherthing=2):
     pass
 ```
@@ -56,15 +66,15 @@ No checks exist for `anotherthing` so it has no restrictions.
 Simple. Just use `None`.
 
 ```python
-@validates(is_instance(basestring), None, between(0, 100))
+@validates(inst(basestring), None, between(0, 100))
 def do_something(name, id, age):
     pass
 ```
 
 ### What validation clauses are built in?
 
-* `is_type(t)` - value must be of exact type `t`
-* `is_instance(t)` - value must be of exact type `t` or of subclass
+* `typ(t)` - value must be of exact type `t`
+* `inst(t)` - value must be of exact type `t` or of subclass
 * `between(lower, upper, lower_inclusive=True, upper_inclusive=False)` - the value must between `lower` and `upper`.
 * `len_between(...)` - identical to `between` but uses `len(value)`
 * `not_negative()` - value cannot be negative
