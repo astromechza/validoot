@@ -29,6 +29,7 @@ setup(
     author_email='benmeier@fastmail.com',
     url='http://github.com/AstromechZA/validoot',
     description='Simple validation for function arguments using a decorator.',
+    license='MIT',
 
     # packages
     packages=['validoot'],
