@@ -2,8 +2,8 @@ from .exceptions import ValidationError
 from .decorators import validates
 from .operations import And, Or
 from .clauses import (
-    typ,
-    inst,
+    typ, typ_or_none,
+    inst, inst_or_none,
     between,
     len_between,
     not_negative
@@ -16,7 +16,9 @@ __all__ = [
     'And',
     'Or',
     'typ',
+    'typ_or_none',
     'inst',
+    'inst_or_none',
     'between',
     'len_between',
     'not_negative'

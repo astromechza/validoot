@@ -1,5 +1,6 @@
 from .operations import And, Or
 
+
 class Clause(object):
 
     def __init__(self):

@@ -1,6 +1,3 @@
-from .exceptions import ValidationError
-
-
 class And(object):
 
     def __init__(self, *clauses):
