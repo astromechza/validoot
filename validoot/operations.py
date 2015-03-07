@@ -1,5 +1,6 @@
 from .exceptions import ValidationError
 
+
 class And(object):
 
     def __init__(self, *clauses):
@@ -10,10 +11,12 @@ class And(object):
 
     def __call__(self, value):
         for clause in self.clauses:
-            if clause(value) != True:
+            if clause(value) is not True:
                 raise ValidationError(
-                    'Value {!r} did not pass clause {!r}'.format(value, clause))
+                    'Value {!r} did not pass clause {!r}'.format(
+                        value, clause))
         return True
+
 
 class Or(object):
 
@@ -25,6 +28,7 @@ class Or(object):
 
     def __call__(self, value):
         for clause in self.clauses:
-            if clause(value) == True:
+            if clause(value) is True:
                 return True
-        raise ValidationError('Value {!r} did not pass any clauses'.format(value))
+        raise ValidationError(
+            'Value {!r} did not pass any clauses'.format(value))
