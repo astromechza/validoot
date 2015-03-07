@@ -1,8 +1,10 @@
-/.eggs
-/.build
-/.dist
+build/
+dist/
 *.pyc
-*.egg-info
+
+.eggs/
 *.egg/
+*.egg-info/
+
 /htmlcov
 .coverage
