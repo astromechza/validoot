@@ -1,6 +1,6 @@
 
 from validoot.clauses import (
-    Clause, is_type, is_instance, between, len_between, not_negative
+    Clause, typ, inst, between, len_between, not_negative
 )
 
 
@@ -15,30 +15,30 @@ class B(A):
 def test_Clause():
     assert not Clause()(1)
 
-# is_type clause
+# typ clause
 
-def test_is_type():
-    assert is_type(int)(1)
+def test_typ():
+    assert typ(int)(1)
 
-def test_is_type_fail():
-    assert not is_type(str)(1)
+def test_typ_fail():
+    assert not typ(str)(1)
 
-def test_is_type_no_inheritance():
-    assert is_type(A)(A())
-    assert not is_type(A)(B())
+def test_typ_no_inheritance():
+    assert typ(A)(A())
+    assert not typ(A)(B())
 
-# is_instance clause
+# inst clause
 
-def test_is_instance():
-    assert is_instance(int)(1)
+def test_inst():
+    assert inst(int)(1)
 
-def test_is_instance_fail():
-    assert not is_instance(str)(1)
+def test_inst_fail():
+    assert not inst(str)(1)
 
-def test_is_instance_inheritance():
-    assert is_instance(A)(A())
-    assert is_instance(A)(B())
-    assert not is_instance(B)(A())
+def test_inst_inheritance():
+    assert inst(A)(A())
+    assert inst(A)(B())
+    assert not inst(B)(A())
 
 # between clause
 

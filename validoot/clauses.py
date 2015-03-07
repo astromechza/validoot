@@ -7,23 +7,20 @@ class Clause(object):
         return False
 
 
-class is_type(Clause):
+class typ(Clause):
 
-    def __init__(self, typ):
-        super(is_type, self).__init__()
-        self.typ = typ
-
-    def __call__(self, value):
-        return type(value) == self.typ
-
-
-class is_instance(Clause):
-    def __init__(self, inst):
-        super(is_instance, self).__init__()
-        self.inst = inst
+    def __init__(self, t):
+        super(typ, self).__init__()
+        self._type = t
 
     def __call__(self, value):
-        return isinstance(value, self.inst)
+        return type(value) == self._type
+
+
+class inst(typ):
+
+    def __call__(self, value):
+        return isinstance(value, self._type)
 
 
 class between(Clause):
