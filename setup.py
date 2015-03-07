@@ -39,7 +39,6 @@ setup(
 
     # requirements
     install_requires=[],
-    setup_requires=['flake8'],
 
     # tests
     tests_require=['pytest-cov', 'pytest'],
