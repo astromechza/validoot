@@ -16,14 +16,14 @@ class validates(object):
         return self.inner
 
     def inner(self, *args, **kwargs):
-        for i in xrange(len(self.positional_validators)):
+        for i in range(len(self.positional_validators)):
             if self.positional_validators[i] is not None:
                 if self.positional_validators[i](args[i]) is not True:
                     raise ValidationError(
                         ('Validation for position argument {:d} with value '
                          '{!r} failed.').format(i, args[i]))
 
-        for k, v in kwargs.iteritems():
+        for k, v in kwargs.items():
             if k in self.keyword_validators:
                 if self.keyword_validators[k](v) is not True:
                     raise ValidationError(

@@ -3,6 +3,13 @@ from validoot.clauses import (
     Clause, is_type, is_instance, between, len_between, not_negative
 )
 
+
+class A(object):
+    pass
+
+class B(A):
+    pass
+
 # base clause
 
 def test_Clause():
@@ -17,7 +24,8 @@ def test_is_type_fail():
     assert not is_type(str)(1)
 
 def test_is_type_no_inheritance():
-    assert not is_type(basestring)('')
+    assert is_type(A)(A())
+    assert not is_type(A)(B())
 
 # is_instance clause
 
@@ -28,8 +36,9 @@ def test_is_instance_fail():
     assert not is_instance(str)(1)
 
 def test_is_instance_inheritance():
-    assert is_instance(basestring)('bob')
-    assert is_instance(basestring)(u'charles')
+    assert is_instance(A)(A())
+    assert is_instance(A)(B())
+    assert not is_instance(B)(A())
 
 # between clause
 
