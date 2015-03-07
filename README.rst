@@ -6,6 +6,10 @@ types, clauses, and combinations of clauses. It is meant to remove some
 of the boiler plate code used to check the input types and checks such
 as between, or string lengths.
 
+Github url: https://github.com/AstromechZA/validoot
+
+Pypi url: https://pypi.python.org/pypi/validoot/1.0
+
 Definitions
 ^^^^^^^^^^^
 
@@ -17,6 +21,8 @@ Basic example:
 --------------
 
 .. code:: python
+
+    from validoot import validates, inst, typ, between
 
     @validates(inst(basestring), typ(int), between(0, 100))
     def do_something(name, id, age):
@@ -35,6 +41,8 @@ We can extend the first example by adding an additional check for the
 
 .. code:: python
 
+    from validoot import validates, inst, typ, between, len_between, And
+
     @validates(And(inst(basestring), len_between(5, 40)), typ(int), between(0, 100))
     def do_something(name, id, age):
         pass
@@ -48,6 +56,8 @@ previous example can be changed to look like this:
 
 .. code:: python
 
+    from validoot import validates, inst, typ, between, len_between
+
     @validates(inst(basestring)._and(len_between(5, 40)), typ(int), between(0, 100))
     def do_something(name, id, age):
         pass
@@ -58,6 +68,8 @@ Keyword arguments:
 There is also support for keyword arguments:
 
 .. code:: python
+
+    from validoot import validates, inst, typ
 
     @validates(inst(basestring), something=typ(float))
     def do_something(name, something=1.0, anotherthing=2):
@@ -88,6 +100,8 @@ What if I don’t want validation for one of the position arguments?
 Simple. Just use ``None``.
 
 .. code:: python
+
+    from validoot import validates, inst, between
 
     @validates(inst(basestring), None, between(0, 100))
     def do_something(name, id, age):
