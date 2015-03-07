@@ -1,6 +1,9 @@
+import os
 import sys
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
+
+here = os.path.abspath(os.path.dirname(__file__))
 
 
 class PyTest(TestCommand):
@@ -21,6 +24,7 @@ class PyTest(TestCommand):
         errno = pytest.main(self.pytest_args)
         sys.exit(errno)
 
+
 setup(
     # package info
     name='validoot',
@@ -30,6 +34,7 @@ setup(
     url='http://github.com/AstromechZA/validoot',
     download_url='https://github.com/AstromechZA/validoot/tarball/1.0',
     description='Simple validation for function arguments using a decorator.',
+    long_description=open(os.path.join(here, 'README.rst')).read(),
     keywords=[
         'validate',
         'function arguments',
