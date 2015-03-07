@@ -75,7 +75,7 @@ def do_something(name, id, age):
 
 * `typ(t)` - value must be of exact type `t`
 * `inst(t)` - value must be of exact type `t` or of subclass
-* `between(lower, upper, lower_inclusive=True, upper_inclusive=False)` - the value must between `lower` and `upper`.
+* `between(lower, upper, lower_inc=True, upper_inc=False)` - the value must between `lower` and `upper`.
 * `len_between(...)` - identical to `between` but uses `len(value)`
 * `not_negative()` - value cannot be negative
 
