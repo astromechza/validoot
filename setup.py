@@ -25,7 +25,12 @@ setup(
     # package info
     name='validoot',
     version='1.0',
+    author='Ben Meier',
+    author_email='benmeier@fastmail.com',
+    url='http://github.com/AstromechZA/validoot',
     description='Simple validation for function arguments using a decorator.',
+
+    # packages
     packages=['validoot'],
 
     # runtime scripts
