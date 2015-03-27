@@ -1,4 +1,4 @@
-validoot - 1.0
+validoot - 1.1
 ==============
 
 This module is designed to solve the most basic of argument validations:
@@ -8,7 +8,7 @@ as between, or string lengths.
 
 Github url: https://github.com/AstromechZA/validoot
 
-Pypi url: https://pypi.python.org/pypi/validoot/1.0
+Pypi url: https://pypi.python.org/pypi/validoot/1.1
 
 Definitions
 ^^^^^^^^^^^
