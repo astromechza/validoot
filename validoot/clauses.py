@@ -1,3 +1,5 @@
+import re
+
 from .operations import And, Or
 
 
@@ -44,6 +46,32 @@ class inst_or_none(inst):
         return value is None or super(inst_or_none, self).__call__(value)
 
 
+class at_least(Clause):
+    def __init__(self, value, inclusive=True):
+        super(at_least, self).__init__()
+        self.value = value
+        self.inclusive = inclusive
+
+    def __call__(self, value):
+        if self.inclusive:
+            return value >= self.value
+        else:
+            return value > self.value
+
+
+class at_most(Clause):
+    def __init__(self, value, inclusive=True):
+        super(at_most, self).__init__()
+        self.value = value
+        self.inclusive = inclusive
+
+    def __call__(self, value):
+        if self.inclusive:
+            return value <= self.value
+        else:
+            return value < self.value
+
+
 class between(Clause):
 
     def __init__(self, lower, upper, lower_inc=True, upper_inc=False):
@@ -75,6 +103,18 @@ class len_between(between):
         return super(len_between, self).__call__(len(value))
 
 
-class not_negative(Clause):
+class regex(Clause):
+
+    def __init__(self, r, entire_string=True, flags=0):
+        super(regex, self).__init__()
+
+        if entire_string:
+            if not r.startswith('^'):
+                r = '^' + r
+            if not r.endswith('$') and not r.endswith('\\$'):
+                r = r + '$'
+
+        self.reg = re.compile(r, flags=flags)
+
     def __call__(self, value):
-        return value >= 0
+        return self.reg.match(value) is not None

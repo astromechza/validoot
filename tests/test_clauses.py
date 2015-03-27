@@ -2,7 +2,9 @@
 from validoot.clauses import (
     Clause,
     typ, typ_or_none, inst, inst_or_none,
-    between, len_between, not_negative
+    at_least, at_most,
+    between, len_between,
+    regex
 )
 
 
@@ -69,6 +71,22 @@ def test_inst_or_none():
     assert inst_or_none(A)(None)
     assert not inst_or_none(B)(A())
 
+# at_least clause
+
+def test_at_least():
+    assert at_least(15.5)(20)
+    assert at_least(15.5)(15.5)
+    assert not at_least(15.5)(1)
+    assert not at_least(15.5, inclusive=False)(15.5)
+
+# at_most clause
+
+def test_at_most():
+    assert at_most(15.5)(10)
+    assert at_most(15.5)(15.5)
+    assert not at_most(15.5)(20)
+    assert not at_most(15.5, inclusive=False)(15.5)
+
 # between clause
 
 def test_between():
@@ -90,10 +108,9 @@ def test_len_between():
     assert not len_between(0, 5)('something long')
     assert not len_between(2, 5)('')
 
-# not_negative clause
+# regex clause
 
-def test_not_negative():
-    assert not_negative()(0)
-    assert not_negative()(10)
-    assert not not_negative()(-1)
-    assert not not_negative()(-10)
+def test_regex():
+    assert regex(r'\d{4}')('0000')
+    assert not regex(r'\d{4}')('aaaa')
+    assert not regex(r'\d{4}')('0000a')

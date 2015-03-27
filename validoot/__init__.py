@@ -4,11 +4,23 @@ from .operations import And, Or
 from .clauses import (
     typ, typ_or_none,
     inst, inst_or_none,
+    at_least, at_most,
     between,
     len_between,
-    not_negative
+    regex
 )
-from .builtins import _, numeric, text
+from .builtins import (
+    _,
+    numeric,
+    text,
+    positive,
+    negative,
+    latitude,
+    longitude,
+    email_address,
+    ip_address,
+    url
+)
 
 __all__ = [
     'ValidationError',
@@ -20,8 +32,17 @@ __all__ = [
     'inst',
     'inst_or_none',
     'between',
+    'at_least',
+    'at_most',
     'len_between',
-    'not_negative',
+    'regex',
     'numeric',
-    'text'
+    'text',
+    'positive',
+    'negative',
+    'latitude',
+    'longitude',
+    'email_address',
+    'ip_address',
+    'url'
 ]
