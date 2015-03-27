@@ -62,6 +62,12 @@ previous example can be changed to look like this:
     def do_something(name, id, age):
         pass
 
+Operators can also be combined in more complicated ways:
+
+.. code:: python
+
+    inst(basestring)._and(len_between(5, 40))._or(typ(int))
+
 Keyword arguments:
 ------------------
 
@@ -88,6 +94,11 @@ There are some more complex clauses included with the package:
 -  ``numeric`` : Only accepts ``int``, ``float``, or ``long`` types.
 -  ``text`` : Only accepts instances of ``basestring`` (Python 2) or
    ``str`` (Python 3).
+-  ``positive`` : Only positive numbers
+-  ``negative`` : Only positive numbers
+-  ``email_address`` : Simple regex email check (covers most basic examples)
+-  ``ip_address`` : Only accept an IPv4 address
+-  ``url`` : Simple regex url check (covers most basic examples)
 
 These can be found in the ``validoot.builtins`` module.
 
@@ -117,7 +128,7 @@ What validation clauses are built in?
    indicate range inclusivity.
 -  ``len_between(...)`` - identical to ``between`` but uses
    ``len(value)``
--  ``not_negative()`` - value cannot be negative
+-  ``regex(string)`` - value must match the regex string provided
 
 How do I create my own validation clauses?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
