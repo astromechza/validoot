@@ -18,7 +18,7 @@ Definitions
 -  Operator - Allows you to “and” and “or” clauses together.
 
 Basic example:
---------------
+^^^^^^^^^^^^^^
 
 .. code:: python
 
@@ -33,7 +33,7 @@ In the code above, a ``validoot.ValidationError`` will be thrown if the
 if the ``age`` is not between 0 and 100.
 
 Operators:
-----------
+^^^^^^^^^^
 
 We can extend the first example by adding an additional check for the
 ``name``: it must be between 5 and 40 characters. For this we use the
@@ -69,7 +69,7 @@ Operators can also be combined in more complicated ways:
     inst(basestring)._and(len_between(5, 40))._or(typ(int))
 
 Keyword arguments:
-------------------
+^^^^^^^^^^^^^^^^^^
 
 There is also support for keyword arguments:
 
@@ -86,7 +86,7 @@ specified in the decorator. No checks exist for ``anotherthing`` so it
 has no restrictions.
 
 Decorating Class/Static/Instance methods or Constructors:
----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Methods belonging to classes can be validated as well in exactly the same way
 as the examples above. Please make note of the order of the ``@validates``
@@ -124,7 +124,7 @@ decorator should be places on the class itself:
             self.username = username
 
 Additional Clauses:
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 There are some more complex clauses included with the package:
 
@@ -141,7 +141,7 @@ There are some more complex clauses included with the package:
 These can be found in the ``validoot.builtins`` module.
 
 FAQ:
-----
+^^^^
 
 What if I don’t want validation for one of the position arguments?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
