@@ -85,6 +85,44 @@ Here the ``something`` value must pass the validation checks as
 specified in the decorator. No checks exist for ``anotherthing`` so it
 has no restrictions.
 
+Decorating Class/Static/Instance methods or Constructors:
+---------------------------------------------------------
+
+Methods belonging to classes can be validated as well in exactly the same way
+as the examples above. Please make note of the order of the ``@validates``
+decorator and other decorators such as ``@classmethod`` or ``@staticmethod``.
+
+.. code:: python
+
+    class SomeClass(object):
+
+        # classmethod MUST be the innermost decorator!
+        @validates(typ(int))
+        @classmethod
+        def some_class_method(cls, an_integer):
+            return an_integer
+
+        # staticmethod can be outer or inner decorator
+        @staticmethod
+        @validates(typ(float))
+        def some_static_method(a_floater):
+            return a_floater
+
+        @validates(typ(string))
+        def some_instance_method(self, a_string):
+            return a_string
+
+In order to validate arguments passed through to a constructor, the validates
+decorator should be places on the class itself:
+
+.. code:: python
+
+    @validates(typ(string))
+    class SomeClass(object):
+
+        def __init__(self, username):
+            self.username = username
+
 Additional Clauses:
 -------------------
 

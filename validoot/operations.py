@@ -22,6 +22,7 @@ class And(object):
     def _or(self, *clauses):
         return Or(*([self] + list(clauses)))
 
+
 class Or(object):
 
     def __init__(self, *clauses):

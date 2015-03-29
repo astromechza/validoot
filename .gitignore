@@ -4,6 +4,7 @@ dist/
 
 .eggs/
 *.egg/
+*.egg
 *.egg-info/
 
 /htmlcov

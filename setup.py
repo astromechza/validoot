@@ -24,7 +24,6 @@ class PyTest(TestCommand):
         errno = pytest.main(self.pytest_args)
         sys.exit(errno)
 
-
 setup(
     # package info
     name='validoot',
@@ -56,7 +55,7 @@ setup(
     scripts=[],
 
     # requirements
-    install_requires=[],
+    install_requires=['wrapt'],
 
     # tests
     tests_require=['pytest-cov', 'pytest'],

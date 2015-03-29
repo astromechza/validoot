@@ -1,21 +1,23 @@
 from .exceptions import ValidationError
 
+import wrapt
+
 
 class validates(object):
     """
     The core decorator that attaches validators clauses for positional and
     keyword arguments.
+
+    The wrapt.decorator add-in does most of the heavy lifting such as handling
+    class/static/instance methods and renaming function attributes.
     """
 
     def __init__(self, *args, **kwargs):
         self.positional_validators = args
         self.keyword_validators = kwargs
 
-    def __call__(self, func):
-        self.func = func
-        return self.inner
-
-    def inner(self, *args, **kwargs):
+    @wrapt.decorator
+    def __call__(self, wrapped, instance, args, kwargs):
         for i in range(len(self.positional_validators)):
             if self.positional_validators[i] is not None:
                 if self.positional_validators[i](args[i]) is not True:
@@ -30,4 +32,4 @@ class validates(object):
                         ('Validation for keyword argument {!s} with value {!r}'
                          ' failed.').format(k, v))
 
-        return self.func(*args, **kwargs)
+        return wrapped(*args, **kwargs)
