@@ -7,7 +7,13 @@ from .clauses import (
     at_least, at_most,
     between,
     len_between,
-    regex
+    regex,
+    list_of,
+    list_of_inst,
+    list_of_typ,
+    dict_of,
+    dict_of_typ,
+    dict_of_inst
 )
 from .builtins import (
     _,
@@ -36,6 +42,12 @@ __all__ = [
     'at_most',
     'len_between',
     'regex',
+    'list_of',
+    'list_of_typ',
+    'list_of_inst',
+    'dict_of',
+    'dict_of_typ',
+    'dict_of_inst',
     '_',
     'numeric',
     'text',

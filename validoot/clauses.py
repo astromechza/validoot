@@ -118,3 +118,65 @@ class regex(Clause):
 
     def __call__(self, value):
         return self.reg.match(value) is not None
+
+
+class list_of(Clause):
+
+    def __init__(self, clause):
+        super(list_of, self).__init__()
+
+        if not callable(clause):
+            raise TypeError('Clause must be callable')
+
+        self._clause = clause
+
+    def __call__(self, value):
+        if type(value) == list:
+            for l in value:
+                if not self._clause(l):
+                    return False
+            return True
+        return False
+
+
+class dict_of(Clause):
+
+    def __init__(self, clause1, clause2):
+        super(dict_of, self).__init__()
+
+        if not callable(clause1):
+            raise TypeError('Clause 1 must be callable')
+
+        if not callable(clause2):
+            raise TypeError('Clause 2 must be callable')
+
+        self._clause1 = clause1
+        self._clause2 = clause2
+
+    def __call__(self, value):
+        if type(value) == dict:
+            for k, v in value.items():
+                if not self._clause1(k) or not self._clause2(v):
+                    return False
+            return True
+        return False
+
+
+class list_of_typ(list_of):
+    def __init__(self, t):
+        super(list_of_typ, self).__init__(typ(t))
+
+
+class list_of_inst(list_of):
+    def __init__(self, t):
+        super(list_of_inst, self).__init__(inst(t))
+
+
+class dict_of_typ(dict_of):
+    def __init__(self, t1, t2):
+        super(dict_of_typ, self).__init__(typ(t1), typ(t2))
+
+
+class dict_of_inst(dict_of):
+    def __init__(self, t1, t2):
+        super(dict_of_inst, self).__init__(inst(t1), inst(t2))
