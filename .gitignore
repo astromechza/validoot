@@ -11,3 +11,4 @@ dist/
 .coverage
 .idea/
 venv/
+venv3/

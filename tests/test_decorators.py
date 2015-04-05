@@ -35,7 +35,8 @@ def test_position_args_fail():
 
     with pytest.raises(ValidationError) as e:
         inner(1)
-    assert e.value.message == "Validation <AlwaysFail> failed for value 1 ( arg[0] )"
+
+    assert str(e.value) == "Validation <AlwaysFail> failed for value 1 ( arg[0] )"
 
 
 def test_keyword_args():
@@ -65,4 +66,4 @@ def test_keyword_args_fail():
 
     with pytest.raises(ValidationError) as e:
         inner(key='Bob')
-    assert e.value.message == "Validation <AlwaysFail> failed for value 'Bob' ( kwarg[key] )"
+    assert str(e.value) == "Validation <AlwaysFail> failed for value 'Bob' ( kwarg[key] )"

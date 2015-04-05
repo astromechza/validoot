@@ -15,6 +15,15 @@ from validoot.clauses import (
 )
 
 
+# HACKS for python2 vs python3 module names
+try:
+    import __builtin__
+    BI = '__builtin__'
+except:
+    BI = 'builtins'
+# end HACKS
+
+
 def meta_test(validator, good=list(), bad=list()):
     for g in good:
         assert validator(g)
@@ -44,7 +53,7 @@ def test_clause_and_shortcut():
         bad=[11]
     )
 
-    assert str(typ(int)._and(between(0, 10))) == '<<type __builtin__.int> and <in range [0..10)>>'
+    assert str(typ(int)._and(between(0, 10))) == '<<type {BI}.int> and <in range [0..10)>>'.format(BI=BI)
 
 
 def test_clause_or_shortcut():
@@ -54,7 +63,7 @@ def test_clause_or_shortcut():
         bad=['string']
     )
 
-    assert str(typ(int)._or(typ(float))) == '<<type __builtin__.int> or <type __builtin__.float>>'
+    assert str(typ(int)._or(typ(float))) == '<<type {BI}.int> or <type {BI}.float>>'.format(BI=BI)
 
 
 # typ clause
@@ -64,7 +73,7 @@ def test_typ():
         good=[1, -1],
         bad=['string']
     )
-    assert str(typ(int)) == '<type __builtin__.int>'
+    assert str(typ(int)) == '<type {BI}.int>'.format(BI=BI)
 
 
 def test_typ_no_inheritance():
@@ -85,7 +94,7 @@ def test_typ_or_none():
         bad=[2.999]
     )
 
-    assert str(typ_or_none(int)) == '<type __builtin__.int or None>'
+    assert str(typ_or_none(int)) == '<type {BI}.int or None>'.format(BI=BI)
 
 
 # inst clause
@@ -96,7 +105,7 @@ def test_inst_inheritance():
         bad=[object()]
     )
 
-    assert str(inst(int)) == '<instance of __builtin__.int>'
+    assert str(inst(int)) == '<instance of {BI}.int>'.format(BI=BI)
 
 
 # inst_or_none clause
@@ -194,7 +203,7 @@ def test_list_of():
     with pytest.raises(TypeError):
         list_of(object())
 
-    assert str(list_of(typ(float))) == '<list of <type __builtin__.float>>'
+    assert str(list_of(typ(float))) == '<list of <type {BI}.float>>'.format(BI=BI)
 
 # dict_of
 def test_dict_of():
@@ -210,7 +219,7 @@ def test_dict_of():
     with pytest.raises(TypeError):
         dict_of(typ(int), object())
 
-    assert str(dict_of(typ(str), typ(float))) == '<dict of <type __builtin__.str> -> <type __builtin__.float>>'
+    assert str(dict_of(typ(str), typ(float))) == '<dict of <type {BI}.str> -> <type {BI}.float>>'.format(BI=BI)
 
 
 # list_of_typ
