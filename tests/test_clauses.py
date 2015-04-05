@@ -33,6 +33,9 @@ class B(A):
 def test_Clause():
     meta_test(Clause(), bad=[1])
 
+    assert str(Clause()) == '<always fails>'
+    assert repr(Clause()) == '<always fails>'
+
 
 def test_clause_and_shortcut():
     meta_test(
@@ -40,6 +43,8 @@ def test_clause_and_shortcut():
         good=[1, 9],
         bad=[11]
     )
+
+    assert str(typ(int)._and(between(0, 10))) == '<<type __builtin__.int> and <in range [0..10)>>'
 
 
 def test_clause_or_shortcut():
@@ -49,6 +54,8 @@ def test_clause_or_shortcut():
         bad=['string']
     )
 
+    assert str(typ(int)._or(typ(float))) == '<<type __builtin__.int> or <type __builtin__.float>>'
+
 
 # typ clause
 def test_typ():
@@ -57,6 +64,7 @@ def test_typ():
         good=[1, -1],
         bad=['string']
     )
+    assert str(typ(int)) == '<type __builtin__.int>'
 
 
 def test_typ_no_inheritance():
@@ -65,6 +73,8 @@ def test_typ_no_inheritance():
         good=[A()],
         bad=[B()]
     )
+
+    assert str(typ(A)) == '<type test_clauses.A>'
 
 
 # typ_or_none clause
@@ -75,6 +85,8 @@ def test_typ_or_none():
         bad=[2.999]
     )
 
+    assert str(typ_or_none(int)) == '<type __builtin__.int or None>'
+
 
 # inst clause
 def test_inst_inheritance():
@@ -84,6 +96,8 @@ def test_inst_inheritance():
         bad=[object()]
     )
 
+    assert str(inst(int)) == '<instance of __builtin__.int>'
+
 
 # inst_or_none clause
 def test_inst_or_none():
@@ -92,6 +106,8 @@ def test_inst_or_none():
         good=[A(), B(), None],
         bad=[object()]
     )
+
+    assert str(inst_or_none(B)) == '<instance of test_clauses.B or None>'
 
 
 # at_least clause
@@ -107,6 +123,9 @@ def test_at_least():
         bad=[10, 15.5]
     )
 
+    assert str(at_least(0.5)) == '<at least 0.5 (inclusive)>'
+    assert str(at_least(0.5, inclusive=False)) == '<at least 0.5 (exclusive)>'
+
 
 # at_most clause
 def test_at_most():
@@ -121,12 +140,19 @@ def test_at_most():
         bad=[20, 15.5]
     )
 
+    assert str(at_most(0.5)) == '<at most 0.5 (inclusive)>'
+    assert str(at_most(0.5, inclusive=False)) == '<at most 0.5 (exclusive)>'
+
 
 # between clause
 def test_between():
-    assert between(0, 1)(0.5)
-    assert not between(0, 1)(-1)
-    assert not between(0, 1)(2)
+    meta_test(
+        between(0, 1),
+        good=[0.5],
+        bad=[-1, 2, 1]
+    )
+
+    assert str(between(0, 1)) == '<in range [0..1)>'
 
 
 def test_between_bounds():
@@ -136,12 +162,17 @@ def test_between_bounds():
     assert between(0, 100, upper_inc=True)(100)
     assert not between(0, 100, upper_inc=True)(101)
 
+    assert str(between(0, 100, lower_inc=False)) == '<in range (0..100)>'
+    assert str(between(0, 100, upper_inc=True)) == '<in range [0..100]>'
+
 
 # len_between clause
 def test_len_between():
     assert len_between(0, 5)('bob')
     assert not len_between(0, 5)('something long')
     assert not len_between(2, 5)('')
+
+    assert str(len_between(0, 5)) == '<length in range [0..5)>'
 
 
 # regex clause
@@ -150,6 +181,7 @@ def test_regex():
     assert not regex(r'\d{4}')('aaaa')
     assert not regex(r'\d{4}')('0000a')
 
+    assert str(regex(r'\d{4}')) == "<regex match '^\d{4}$'>"
 
 # list_of
 def test_list_of():
@@ -162,6 +194,7 @@ def test_list_of():
     with pytest.raises(TypeError):
         list_of(object())
 
+    assert str(list_of(typ(float))) == '<list of <type __builtin__.float>>'
 
 # dict_of
 def test_dict_of():
@@ -176,6 +209,8 @@ def test_dict_of():
 
     with pytest.raises(TypeError):
         dict_of(typ(int), object())
+
+    assert str(dict_of(typ(str), typ(float))) == '<dict of <type __builtin__.str> -> <type __builtin__.float>>'
 
 
 # list_of_typ

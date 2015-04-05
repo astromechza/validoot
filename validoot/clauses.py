@@ -18,7 +18,10 @@ class Clause(object):
         return Or(*([self] + list(clauses)))
 
     def __str__(self):
-        return '<always-false>'
+        return '<always fails>'
+
+    def __repr__(self):
+        return str(self)
 
 
 class typ(Clause):
@@ -31,7 +34,7 @@ class typ(Clause):
         return type(value) == self._type
 
     def __str__(self):
-        return "<type={}>".format(self._type)
+        return "<type {}.{}>".format(self._type.__module__, self._type.__name__)
 
 
 class typ_or_none(typ):
@@ -40,7 +43,7 @@ class typ_or_none(typ):
         return value is None or super(typ_or_none, self).__call__(value)
 
     def __str__(self):
-        return "<type={} or type=None>".format(self._type)
+        return "<type {}.{} or None>".format(self._type.__module__, self._type.__name__)
 
 
 class inst(typ):
@@ -49,7 +52,7 @@ class inst(typ):
         return isinstance(value, self._type)
 
     def __str__(self):
-        return "<instance of {}>".format(self._type)
+        return "<instance of {}.{}>".format(self._type.__module__, self._type.__name__)
 
 
 class inst_or_none(inst):
@@ -58,7 +61,7 @@ class inst_or_none(inst):
         return value is None or super(inst_or_none, self).__call__(value)
 
     def __str__(self):
-        return "<instance of {} or None>".format(self._type)
+        return "<instance of {}.{} or None>".format(self._type.__module__, self._type.__name__)
 
 
 class at_least(Clause):
@@ -118,7 +121,7 @@ class between(Clause):
         return True
 
     def __str__(self):
-        return "<in range {}{}-{}{}>".format(
+        return "<in range {}{}..{}{}>".format(
             '[' if self.lower_inc else '(',
             self.lower,
             self.upper,
@@ -132,7 +135,7 @@ class len_between(between):
         return super(len_between, self).__call__(len(value))
 
     def __str__(self):
-        return "<length in range {}{}-{}{}>".format(
+        return "<length in range {}{}..{}{}>".format(
             '[' if self.lower_inc else '(',
             self.lower,
             self.upper,
