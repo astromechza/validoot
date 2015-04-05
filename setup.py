@@ -27,11 +27,11 @@ class PyTest(test):
 setup(
     # package info
     name='validoot',
-    version='1.2',
+    version='1.3',
     author='Ben Meier',
     author_email='benmeier@fastmail.com',
     url='http://github.com/AstromechZA/validoot',
-    download_url='https://github.com/AstromechZA/validoot/tarball/1.2',
+    download_url='https://github.com/AstromechZA/validoot/tarball/1.3',
     description='Simple validation for function arguments using a decorator.',
     long_description=open(os.path.join(here, 'README.rst')).read(),
     keywords=[
