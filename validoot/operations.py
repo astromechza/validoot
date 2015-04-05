@@ -1,6 +1,7 @@
 class And(object):
 
     def __init__(self, *clauses):
+        super(And, self).__init__()
         for clause in clauses:
             if not callable(clause):
                 raise TypeError('Argument {!r} is not callable'.format(clause))
@@ -22,10 +23,14 @@ class And(object):
     def _or(self, *clauses):
         return Or(*([self] + list(clauses)))
 
+    def __str__(self):
+        return "<" + ' and '.join([str(c) for c in self.clauses]) + ">"
+
 
 class Or(object):
 
     def __init__(self, *clauses):
+        super(Or, self).__init__()
         for clause in clauses:
             if not callable(clause):
                 raise TypeError('Argument {!r} is not callable'.format(clause))
@@ -46,3 +51,6 @@ class Or(object):
                 raise TypeError('Argument {!r} is not callable'.format(clause))
         self.clauses = tuple(list(self.clauses) + list(clauses))
         return self
+
+    def __str__(self):
+        return "<" + ' or '.join([str(c) for c in self.clauses]) + ">"

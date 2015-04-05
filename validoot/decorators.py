@@ -21,15 +21,13 @@ class validates(object):
         for i in range(len(self.positional_validators)):
             if self.positional_validators[i] is not None:
                 if self.positional_validators[i](args[i]) is not True:
-                    raise ValidationError(
-                        ('Validation for position argument {:d} with value '
-                         '{!r} failed.').format(i, args[i]))
+                    raise ValidationError("Validation {!s} failed for value {!r} ( arg[{:d}] )".format(
+                        self.positional_validators[i], args[i], i))
 
         for k, v in kwargs.items():
             if k in self.keyword_validators:
                 if self.keyword_validators[k](v) is not True:
-                    raise ValidationError(
-                        ('Validation for keyword argument {!s} with value {!r}'
-                         ' failed.').format(k, v))
+                    raise ValidationError("Validation {!s} failed for value {!r} ( kwarg[{!s}] )".format(
+                        self.keyword_validators[k], v, k))
 
         return wrapped(*args, **kwargs)

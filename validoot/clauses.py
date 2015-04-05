@@ -17,6 +17,9 @@ class Clause(object):
     def _or(self, *clauses):
         return Or(*([self] + list(clauses)))
 
+    def __str__(self):
+        return '<always-false>'
+
 
 class typ(Clause):
 
@@ -27,11 +30,17 @@ class typ(Clause):
     def __call__(self, value):
         return type(value) == self._type
 
+    def __str__(self):
+        return "<type={}>".format(self._type)
+
 
 class typ_or_none(typ):
 
     def __call__(self, value):
         return value is None or super(typ_or_none, self).__call__(value)
+
+    def __str__(self):
+        return "<type={} or type=None>".format(self._type)
 
 
 class inst(typ):
@@ -39,11 +48,17 @@ class inst(typ):
     def __call__(self, value):
         return isinstance(value, self._type)
 
+    def __str__(self):
+        return "<instance of {}>".format(self._type)
+
 
 class inst_or_none(inst):
 
     def __call__(self, value):
         return value is None or super(inst_or_none, self).__call__(value)
+
+    def __str__(self):
+        return "<instance of {} or None>".format(self._type)
 
 
 class at_least(Clause):
@@ -58,6 +73,9 @@ class at_least(Clause):
         else:
             return value > self.value
 
+    def __str__(self):
+        return "<at least {} ({})>".format(self.value, 'inclusive' if self.inclusive else 'exclusive')
+
 
 class at_most(Clause):
     def __init__(self, value, inclusive=True):
@@ -70,6 +88,9 @@ class at_most(Clause):
             return value <= self.value
         else:
             return value < self.value
+
+    def __str__(self):
+        return "<at most {} ({})>".format(self.value, 'inclusive' if self.inclusive else 'exclusive')
 
 
 class between(Clause):
@@ -96,11 +117,27 @@ class between(Clause):
 
         return True
 
+    def __str__(self):
+        return "<in range {}{}-{}{}>".format(
+            '[' if self.lower_inc else '(',
+            self.lower,
+            self.upper,
+            ']' if self.upper_inc else ')'
+        )
+
 
 class len_between(between):
 
     def __call__(self, value):
         return super(len_between, self).__call__(len(value))
+
+    def __str__(self):
+        return "<length in range {}{}-{}{}>".format(
+            '[' if self.lower_inc else '(',
+            self.lower,
+            self.upper,
+            ']' if self.upper_inc else ')'
+        )
 
 
 class regex(Clause):
@@ -113,11 +150,14 @@ class regex(Clause):
                 r = '^' + r
             if not r.endswith('$') and not r.endswith('\\$'):
                 r = r + '$'
-
+        self.regex_string = r
         self.reg = re.compile(r, flags=flags)
 
     def __call__(self, value):
         return self.reg.match(value) is not None
+
+    def __str__(self):
+        return "<regex match '{}'>".format(self.regex_string)
 
 
 class list_of(Clause):
@@ -137,6 +177,9 @@ class list_of(Clause):
                     return False
             return True
         return False
+
+    def __str__(self):
+        return "<list of {!s}>".format(self._clause)
 
 
 class dict_of(Clause):
@@ -160,6 +203,9 @@ class dict_of(Clause):
                     return False
             return True
         return False
+
+    def __str__(self):
+        return "<dict of {!s} -> {!s}>".format(self._clause1, self._clause2)
 
 
 class list_of_typ(list_of):
