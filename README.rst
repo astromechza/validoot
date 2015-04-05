@@ -32,6 +32,16 @@ In the code above, a ``validoot.ValidationError`` will be thrown if the
 ``name`` is not a string or unicode, if the ``id`` is not an integer, or
 if the ``age`` is not between 0 and 100.
 
+.. code:: python
+
+    >>> do_something('Darth Vader', 0, 42)
+    >>> do_something('Boba Fett', 1, 123)
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+      File "validoot/decorators.py", line 25, in __call__
+        self.positional_validators[i], args[i], i))
+    validoot.exceptions.ValidationError: Validation <in range [0..100)> failed for value 123 ( arg[2] )
+
 Operators:
 ^^^^^^^^^^
 
@@ -160,13 +170,16 @@ What validation clauses are built in?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  ``typ(t)`` - value must be of exact type ``t``
--  ``inst(t)`` - value must be of exact type ``t`` or of subclass
+-  ``inst(t)`` - value must be of exact type ``t`` or of a subclass
 -  ``between(lower, upper, lower_inc=True, upper_inc=False)`` - the
    value must between ``lower`` and ``upper``. ``lower_inc`` and ``upper_inc``
    indicate range inclusivity.
 -  ``len_between(...)`` - identical to ``between`` but uses
    ``len(value)``
 -  ``regex(string)`` - value must match the regex string provided
+-  ``list_of(v)`` - value must be a list of objects that pass the validation ``v``
+-  ``dict_of(v1, v2)`` - value must be a dictionary where each key passes validation ``v1`` and each value passes validation ``v2``
+
 
 How do I create my own validation clauses?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
